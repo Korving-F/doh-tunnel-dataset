@@ -1,0 +1,41 @@
+---
+
+- name: Provision hosts with filebeat capabilities
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Install all galaxy roles
+      shell: ansible-galaxy install elastic.beats,v7.17.0 --roles-path="/etc/ansible/roles"
+
+    
+    # https://www.elastic.co/guide/en/beats/filebeat/8.0/file-output.html
+    - name: Installing filebeat for collection
+      include_role: 
+        name: elastic.beats
+      vars:
+        beat: "filebeat"
+        beat_conf:
+          filebeat.inputs:
+            - type: filestream
+              enabled: true
+              paths:
+                - "/var/log/nginx/dns.access.log"
+              fields:
+                filename: "dns.access.log"
+            
+            - type: filestream
+              enabled: true
+              paths:
+                - "/var/log/doh-server.log"
+              fields:
+                filename: "doh-server.log"
+            
+        output_conf:
+          file:
+            path: "/tmp"
+            filename: "filebeat.json"
+            # Too small rotation can cause data-loss
+            rotate_every_kb: 500000
+        use_repository: "true"
+    

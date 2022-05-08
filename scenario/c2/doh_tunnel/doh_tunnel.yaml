@@ -1,0 +1,39 @@
+name: "DNS Tunnel over DoH Scenario"
+description: |
+  "This Scenario runs DNS Tunnels over DoH"
+provisioner: vagrant
+use_default_templates: True
+
+components:
+  - name: "{{ dns_server.name }}"
+    ipv4_address: "{{ dns_server.ipv4_address }}"
+    description: "{{ dns_server.description }}"
+    image: "{{ dns_server.image }}"
+    setup: "{{ dns_server.setup }}"
+    run:   "{{ dns_server.run }}"
+    artifacts_to_collect: "{{ dns_server.artifacts_to_collect }}"
+
+  - name: "{{ dns_tunnel.dns_attack_server.name }}"
+    ipv4_address: "{{ dns_tunnel.dns_attack_server.ipv4_address }}"
+    description: "{{ dns_tunnel.dns_attack_server.description }}"
+    image: "{{ dns_tunnel.dns_attack_server.image }}"
+    setup: "{{ dns_tunnel.dns_attack_server.setup }}"
+    run:   "{{ dns_tunnel.dns_attack_server.run }}"
+    artifacts_to_collect: "{{ dns_tunnel.dns_attack_server.artifacts_to_collect }}"
+
+  - name: "{{ dns_tunnel.dns_attack_client.name }}"
+    ipv4_address: "{{ dns_tunnel.dns_attack_client.ipv4_address }}"
+    description: "{{ dns_tunnel.dns_attack_client.description }}"
+    image: ubuntu/focal64
+    setup: "{{ dns_tunnel.dns_attack_client.setup }}"
+    run: "{{ dns_tunnel.dns_attack_client.run }}"
+    artifacts_to_collect: "{{ dns_tunnel.dns_attack_client.artifacts_to_collect }}"
+    depends_on:
+      - dns_attack_server
+      - dns_server
+
+variables:
+  - name: dns_attack_client
+    val: "{{ dns_tunnel.dns_attack_client.variables }}"
+  - name: dns_server
+    val: "{{ dns_server.variables }}"

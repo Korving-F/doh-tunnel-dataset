@@ -1,0 +1,64 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install packages needed for DNS2TCP Server
+    apt:
+      update_cache: yes
+      name:
+        - dns2tcp
+        - libtext-lorem-perl 
+        - asciinema
+        - socat
+      state: latest
+
+  - name: Change password
+    shell: echo "root:root" | chpasswd
+
+  - name: Create testfile
+    shell: lorem -p 10000 > test-file
+    args:
+      chdir: /root
+      creates: test-file
+
+  - name: Make sure target dir exists
+    ansible.builtin.file:
+      path: /var/empty/dns2tcp/
+      state: directory
+
+  - name: Make sure dns2tcp conf exists
+    ansible.builtin.file:
+      path: /opt/dns2tcpdrc
+      state: touch
+
+  - name: Copy over DNS2TCP configuration file
+    blockinfile:
+      path: /opt/dns2tcpdrc
+      marker: "# {mark} ANSIBLE MANAGED BLOCK"
+      block: |
+        listen = 192.168.0.20
+        port = 53
+        user = nobody
+        key = 0xDEADBEEF
+        chroot = /var/empty/dns2tcp/
+        domain = example.attack
+        resources = ssh:127.0.0.1:22, smtp:127.0.0.1:25, pop3:127.0.0.1:110, socat:127.0.0.1:1337
+
+  - name: Change sshd config to allow for password-based login for root
+    ansible.builtin.replace:
+      path: "{{ item.path }}"
+      regexp: "{{ item.regexp }}"
+      replace: "{{ item.replace }}"
+    with_items:
+      - { 'path':'/etc/ssh/sshd_config', 'regexp':'^#?PermitRootLogin\s+.*', 'replace':'PermitRootLogin yes' }
+      - { 'path':'/etc/ssh/sshd_config', 'regexp':'^UsePAM yes', 'replace':'#UsePAM yes' }
+      - { 'path':'/etc/ssh/sshd_config', 'regexp':'PasswordAuthentication no', 'replace':'PasswordAuthentication yes' }
+    notify:
+    - sshd_restart
+
+  handlers:
+    - name: sshd_restart
+      service:
+        name: sshd
+        state: restarted

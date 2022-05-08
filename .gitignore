@@ -1,0 +1,6 @@
+*.log
+*.pcap
+*.json
+*.cast
+.finished
+__pycache__/
