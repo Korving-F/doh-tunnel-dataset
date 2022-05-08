@@ -79,7 +79,7 @@ Collected data within this repository comes in a variety of formats:
 
 Two additional directories can be found:
 * suricata - Contains [Suricata](https://suricata.io/) logs produced from the pcap.</br> See also `suricata-logging.bash` and `suricata.yaml`.
-* ja3      - Exported JA3 signatures using [Wireshark's JA3 plugin](https://github.com/fullylegit/ja3).</br> See also the following commands and/or the two `ja3` scripts placed in the root of this repository.
+* ja3      - Exported JA3 signatures using a [Wireshark JA3 plugin](https://github.com/fullylegit/ja3).</br> See also the following commands and/or the two `ja3` scripts placed in the root of this repository.
     ```bash
     tshark -r filename.pcap -Y tls.handshake.type==1 -T fields -e ja3.hash
     tshark -r filename.pcap -Y tls.handshake.type==2 -T fields -e ja3s.hash
@@ -139,8 +139,8 @@ def gen_c2(path):
     files = Path(path).glob('*')
     data_dirs = [i for i in files if i.is_dir() and i.name != 'scenario']
 
-    dnscat_cols  = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'LINK', 'DATA LINK']
-    dnscat_rows  = []
+    #dnscat_cols  = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'LINK', 'DATA LINK']
+    #dnscat_rows  = []
 
     dns2tcp_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
     dns2tcp_rows = []
@@ -179,18 +179,18 @@ def gen_c2(path):
                 dns2tcp_rows.append(row)
                 break
                 
-            if "dnscat" in component["name"]:
-                row['AUTOMATION LEVEL'] = "Partly Manual"
-                row['DNS RECORD TYPE'] = "TXT,CNAME,MX"
-                dnscat_rows.append(row)
-                break
+            #if "dnscat" in component["name"]:
+            #    row['AUTOMATION LEVEL'] = "Partly Manual"
+            #    row['DNS RECORD TYPE'] = "TXT,CNAME,MX"
+            #    dnscat_rows.append(row)
+            #    break
 
     dns2tcp_rows_sorted = sorted(dns2tcp_rows, key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
-    dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
+    #dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
     
     tables = []
     tables.append(gen_table("DNS2TCP", dns2tcp_cols, dns2tcp_rows_sorted))
-    tables.append(gen_table("DNSCAT",  dnscat_cols,  dnscat_rows_sorted))
+    #tables.append(gen_table("DNSCAT",  dnscat_cols,  dnscat_rows_sorted))
     return "\n".join(tables)
 
 
@@ -201,17 +201,22 @@ def gen_file_transfer(path):
     iodine_cols  = ['DNS SERVER', 'AUTOMATION LEVEL','DNS RECORD TYPE', 'ENCODING', 'PASSPHRASE', 'LINK', 'DATA LINK']
     iodine_rows  = []
 
-    dnscat_cols  = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'LINK', 'DATA LINK']
-    dnscat_rows  = []
+    #dnscat_cols  = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'LINK', 'DATA LINK']
+    #dnscat_rows  = []
 
     dns2tcp_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
     dns2tcp_rows = []
+
+    dnstt_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
+    dnstt_rows = []
 
     for d in data_dirs:
         row = {}
         with open(f"{d}/.metadata", 'r') as f:
             meta = f.read()
         meta_loaded = yaml.safe_load(meta)
+        print(meta_loaded)
+        exit()
 
         # Add link to directory
         row['LINK'] = f"[Scenario files]({d})"
@@ -249,20 +254,20 @@ def gen_file_transfer(path):
                 dns2tcp_rows.append(row)
                 break
                 
-            if "dnscat" in component["name"]:
-                row['AUTOMATION LEVEL'] = "Partly Manual"
-                row['DNS RECORD TYPE'] = "TXT,CNAME,MX"
-                dnscat_rows.append(row)
-                break
+            #if "dnscat" in component["name"]:
+            #    row['AUTOMATION LEVEL'] = "Partly Manual"
+            #    row['DNS RECORD TYPE'] = "TXT,CNAME,MX"
+            #    dnscat_rows.append(row)
+            #    break
 
     iodine_rows_sorted  = sorted(iodine_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
     dns2tcp_rows_sorted = sorted(dns2tcp_rows, key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
-    dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
+    #dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
     
     tables = []
     tables.append(gen_table("IODINE",  iodine_cols,  iodine_rows_sorted))
     tables.append(gen_table("DNS2TCP", dns2tcp_cols, dns2tcp_rows_sorted))
-    tables.append(gen_table("DNSCAT",  dnscat_cols,  dnscat_rows_sorted))
+    #tables.append(gen_table("DNSCAT",  dnscat_cols,  dnscat_rows_sorted))
     return "\n".join(tables)
         
 
@@ -270,10 +275,10 @@ def gen_file_transfer(path):
 
 if __name__ == '__main__':
     # FIRST GENERATE REPORT ON FILE TRANSFER DATASETS
-    ft = gen_file_transfer('dns_tunnel_file_transfer')
+    ft = gen_file_transfer('dos_tunnel_file_transfer')
 
     # SECONDLY GENERATE REPORT ON C2 DATASET
-    c2 = gen_c2('dns_tunnel_c2')
+    c2 = gen_c2('dos_tunnel_c2')
     
     # RENDER README AND WRITE TO DISK
     with open("README.md",'w') as f:

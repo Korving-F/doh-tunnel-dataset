@@ -65,7 +65,7 @@ Collected data within this repository comes in a variety of formats:
 
 Two additional directories can be found:
 * suricata - Contains [Suricata](https://suricata.io/) logs produced from the pcap.</br> See also `suricata-logging.bash` and `suricata.yaml`.
-* ja3      - Exported JA3 signatures using [Wireshark's JA3 plugin](https://github.com/fullylegit/ja3).</br> See also the following commands and/or the two `ja3` scripts placed in the root of this repository.
+* ja3      - Exported JA3 signatures using a [Wireshark JA3 plugin](https://github.com/fullylegit/ja3).</br> See also the following commands and/or the two `ja3` scripts placed in the root of this repository.
     ```bash
     tshark -r filename.pcap -Y tls.handshake.type==1 -T fields -e ja3.hash
     tshark -r filename.pcap -Y tls.handshake.type==2 -T fields -e ja3s.hash
@@ -99,21 +99,11 @@ Two additional directories can be found:
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 
 
-#### DNSCAT
-| DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | LINK | DATA LINK | 
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-
-
 
 ### C2 over DNS Tunnel
 #### DNS2TCP
 | DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | COMPRESSION | PASSPHRASE | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-
-
-#### DNSCAT
-| DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | LINK | DATA LINK | 
-| ------------- | ------------- | ------------- | ------------- | ------------- |
 
 
 
