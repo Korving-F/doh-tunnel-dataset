@@ -1,9 +1,6 @@
 # DNS Tunnel over DoH
-
 ## Description
-
-C2 and File transfer
-
+Fullt automated file transfer over DoH Tunnel scenario.
 
 ## Overview
 ```       
@@ -17,7 +14,7 @@ scenarios/doh_tunnel/               # Main scenario directory
 │   ├── dns2tcp.yaml
 │   ├── dnscat2_client.bash
 │   ├── dnscat2_server.bash
-│   ├── dnscat2.yaml.disabled
+│   ├── dnscat2.yaml.disabled       # Disabled due to a bug in DNSCAT2
 │   ├── dnstt_client_setup.bash
 │   ├── dnstt_server_setup.bash
 │   ├── dnstt.yaml
