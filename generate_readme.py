@@ -252,7 +252,7 @@ def gen_file_transfer(path):
             #    break
 
             if "dnstt" in component["name"]:
-                row['AUTOMATION LEVEL'] = "Partly Manual"
+                row['AUTOMATION LEVEL'] = "Fully Automated"
                 row['TLS FINGERPRINT'] = meta_loaded["variables"]["utls"]
                 dnstt_rows.append(row)
                 break
