@@ -77,7 +77,7 @@ Two additional directories can be found:
 </br>  
 </br>  
 
-![](images/dns_tunnel_simulated.drawio.png)
+![](images/doh_tunnel_simulated.drawio.png)
 > **Fig 2:** Overview on how the DNS Tunnels over DoH are simulated and allow for C2 / data transfers.
 </br>  
 </br>  
