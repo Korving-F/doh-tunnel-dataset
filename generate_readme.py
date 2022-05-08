@@ -157,17 +157,8 @@ def gen_c2(path):
         row['DATA LINK'] = f"[Data files]({d}/{d.name}_full_dataset.tar.gz)"
         # Specify which DNS Server was used
         for component in meta_loaded['scenario']['components']:
-            if "bind9" in component["name"].lower():
-                row['DNS SERVER'] = "BIND9"
-                break
-            elif "dnsmasq" in component["name"].lower():
-                row['DNS SERVER'] = "DNSMASQ"
-                break
-            elif "coredns" in component["name"].lower():
-                row['DNS SERVER'] = "COREDNS"
-                break
-            elif "powerdns" in component["name"].lower():
-                row['DNS SERVER'] = "POWERDNS"
+            if "dnsoverhttps" in component["name"].lower():
+                row['DNS SERVER'] = "DNS-over-HTTPS"
                 break
 
         for component in meta_loaded['scenario']['components']:               
@@ -211,7 +202,6 @@ def gen_file_transfer(path):
     dnstt_rows = []
 
     for d in data_dirs:
-        print("j")
         row = {}
         with open(f"{d}/.metadata", 'r') as f:
             meta = f.read()
@@ -223,17 +213,8 @@ def gen_file_transfer(path):
         row['DATA LINK'] = f"[Data files]({d}/{d.name}_full_dataset.tar.gz)"
         # Specify which DNS Server was used
         for component in meta_loaded['scenario']['components']:
-            if "bind9" in component["name"].lower():
-                row['DNS SERVER'] = "BIND9"
-                break
-            elif "dnsmasq" in component["name"].lower():
-                row['DNS SERVER'] = "DNSMASQ"
-                break
-            elif "coredns" in component["name"].lower():
-                row['DNS SERVER'] = "COREDNS"
-                break
-            elif "powerdns" in component["name"].lower():
-                row['DNS SERVER'] = "POWERDNS"
+            if "dnsoverhttps" in component["name"].lower():
+                row['DNS SERVER'] = "DNS-over-HTTPS"
                 break
 
         for component in meta_loaded['scenario']['components']:
@@ -274,10 +255,10 @@ def gen_file_transfer(path):
 
 if __name__ == '__main__':
     # FIRST GENERATE REPORT ON FILE TRANSFER DATASETS
-    ft = gen_file_transfer('dos_tunnel_file_transfer')
+    ft = gen_file_transfer('doh_tunnel_file_transfer')
 
     # SECONDLY GENERATE REPORT ON C2 DATASET
-    c2 = gen_c2('dos_tunnel_c2')
+    c2 = gen_c2('doh_tunnel_c2')
     
     # RENDER README AND WRITE TO DISK
     with open("README.md",'w') as f:
