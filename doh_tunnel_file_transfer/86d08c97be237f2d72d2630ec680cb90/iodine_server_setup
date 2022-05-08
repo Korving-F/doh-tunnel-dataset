@@ -1,0 +1,72 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install packages needed for IODINE Server
+    apt:
+      update_cache: yes
+      name:
+        - git
+        - make
+        - build-essential
+        - pkg-config
+        - zlib1g-dev
+        - net-tools
+        - openssh-server
+        - iputils-ping
+        - netcat 
+        - dnsutils
+        - libtext-lorem-perl 
+        - sshpass 
+        - asciinema
+      state: latest
+
+  - name: Git checkout of IODINE repo
+    git:
+      repo: 'https://github.com/yarrick/iodine.git'
+      dest: /opt/iodine
+
+  - name: Build the default target for IODINE
+    make:
+      chdir: /opt/iodine
+
+  - name: Build the install target for IODINE
+    make:
+      chdir: /opt/iodine
+      target: install
+
+  - name: Creates needed directories
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+      - /var/run/sshd
+      - /root/.ssh
+
+  - name: Change password
+    shell: echo "root:root" | chpasswd
+
+  - name: Create testfile
+    shell: lorem -p 10000 > test-file
+    args:
+      chdir: /root
+      creates: test-file
+
+  - name: Change sshd config to allow for password-based login for root
+    ansible.builtin.replace:
+      path: "{{ item.path }}"
+      regexp: "{{ item.regexp }}"
+      replace: "{{ item.replace }}"
+    with_items:
+      - { 'path':'/etc/ssh/sshd_config', 'regexp':'^#?PermitRootLogin\s+.*', 'replace':'PermitRootLogin yes' }
+      - { 'path':'/etc/ssh/sshd_config', 'regexp':'^UsePAM yes', 'replace':'#UsePAM yes' }
+      - { 'path':'/etc/ssh/sshd_config', 'regexp':'PasswordAuthentication no', 'replace':'PasswordAuthentication yes' }
+    notify:
+    - sshd_restart
+
+  handlers:
+    - name: sshd_restart
+      service:
+        name: sshd
+        state: restarted

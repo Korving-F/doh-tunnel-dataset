@@ -1,0 +1,25 @@
+name: dnsoverhttps
+description: |
+  Installation of DNS-over-HTTPS server.
+references: >-
+  https://github.com/m13253/dns-over-https
+  https://www.aaflalo.me/2018/10/tutorial-setup-dns-over-https-server/
+image: ubuntu/focal64
+ipv4_address: 192.168.0.10
+setup:
+  type: script
+  val: dns-over-https.bash
+run:
+  type: shell
+  val: >-
+    sudo systemctl stop systemd-resolved;
+    sudo systemctl restart doh-server.service;
+    sudo systemctl restart nginx.service; 
+
+artifacts_to_collect:
+  - type: pcap
+    val: ["tcpdump -i any -s 0 -n -w /tmp/dns.pcap port 53 or port 443 or port 8053"]
+  - type: files
+    val: ["/var/log/nginx/dns.access.log", "/var/log/doh-server.log", "/tmp/filebeat.json*", "/tmp/dns.pcap"]
+  - type: filebeat
+    val: ["/var/log/nginx/dns.access.log", "/var/log/doh-server.log"]
