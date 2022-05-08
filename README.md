@@ -88,7 +88,7 @@ Two additional directories can be found:
 
 
 ## Datasets
-### File transfer over DNS Tunnel
+### File transfer over DoH Tunnel
 #### IODINE
 | DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | ENCODING | PASSPHRASE | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
@@ -148,7 +148,7 @@ Two additional directories can be found:
 
 
 
-### C2 over DNS Tunnel
+### C2 over DoH Tunnel
 #### DNS2TCP
 | DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | COMPRESSION | PASSPHRASE | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |

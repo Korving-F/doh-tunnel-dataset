@@ -102,10 +102,10 @@ Two additional directories can be found:
 
 
 ## Datasets
-### File transfer over DNS Tunnel
+### File transfer over DoH Tunnel
 {file_transfer}
 
-### C2 over DNS Tunnel
+### C2 over DoH Tunnel
 {c2}
 
 ## License
