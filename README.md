@@ -90,7 +90,7 @@ Two additional directories can be found:
 ## Datasets
 ### File transfer over DoH Tunnel
 #### IODINE
-| DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | ENCODING | PASSPHRASE | LINK | DATA LINK | 
+| DOH SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | ENCODING | PASSPHRASE | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | DNS-over-HTTPS | Fully Automated | CNAME | BASE64 | 0xDEADBEEF | [Scenario files](doh_tunnel_file_transfer/fcfefbf7ed7d6070a9607a06d0588d1a) | [Data files](doh_tunnel_file_transfer/fcfefbf7ed7d6070a9607a06d0588d1a/fcfefbf7ed7d6070a9607a06d0588d1a_full_dataset.tar.gz) | 
 | DNS-over-HTTPS | Fully Automated | CNAME | RAW | 0xDEADBEEF | [Scenario files](doh_tunnel_file_transfer/5ff127b33415fc41dc88eed627345b57) | [Data files](doh_tunnel_file_transfer/5ff127b33415fc41dc88eed627345b57/5ff127b33415fc41dc88eed627345b57_full_dataset.tar.gz) | 
@@ -119,7 +119,7 @@ Two additional directories can be found:
 
 
 #### DNS2TCP
-| DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | COMPRESSION | PASSPHRASE | LINK | DATA LINK | 
+| DOH SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | COMPRESSION | PASSPHRASE | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | DNS-over-HTTPS | Fully Automated | KEY | YES | 0xDEADBEEF | [Scenario files](doh_tunnel_file_transfer/afc3bce01fc430c13eace2370412dd09) | [Data files](doh_tunnel_file_transfer/afc3bce01fc430c13eace2370412dd09/afc3bce01fc430c13eace2370412dd09_full_dataset.tar.gz) | 
 | DNS-over-HTTPS | Fully Automated | KEY | NO | 0xDEADBEEF | [Scenario files](doh_tunnel_file_transfer/8f7bd466629bfbe4e8367ee09ca120bb) | [Data files](doh_tunnel_file_transfer/8f7bd466629bfbe4e8367ee09ca120bb/8f7bd466629bfbe4e8367ee09ca120bb_full_dataset.tar.gz) | 
@@ -128,7 +128,7 @@ Two additional directories can be found:
 
 
 #### DNSTT
-| DNS SERVER | AUTOMATION LEVEL | TLS FINGERPRINT | LINK | DATA LINK | 
+| DOH SERVER | AUTOMATION LEVEL | TLS FINGERPRINT | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | DNS-over-HTTPS | Fully Automated | Chrome | [Scenario files](doh_tunnel_file_transfer/601736c56a18195d7536f92f603f6e11) | [Data files](doh_tunnel_file_transfer/601736c56a18195d7536f92f603f6e11/601736c56a18195d7536f92f603f6e11_full_dataset.tar.gz) | 
 | DNS-over-HTTPS | Fully Automated | Chrome_58 | [Scenario files](doh_tunnel_file_transfer/72bd1c3d4e2824c7b51cdddd01b95cd8) | [Data files](doh_tunnel_file_transfer/72bd1c3d4e2824c7b51cdddd01b95cd8/72bd1c3d4e2824c7b51cdddd01b95cd8_full_dataset.tar.gz) | 
@@ -150,7 +150,7 @@ Two additional directories can be found:
 
 ### C2 over DoH Tunnel
 #### DNS2TCP
-| DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | COMPRESSION | PASSPHRASE | LINK | DATA LINK | 
+| DOH SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | COMPRESSION | PASSPHRASE | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | DNS-over-HTTPS | Partly Manual | KEY | NO | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/114d3f4082ae9fd03576fbd5b73b40e4) | [Data files](doh_tunnel_c2/114d3f4082ae9fd03576fbd5b73b40e4/114d3f4082ae9fd03576fbd5b73b40e4_full_dataset.tar.gz) | 
 | DNS-over-HTTPS | Partly Manual | KEY | YES | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/45f56049a5c5659303c72fa38d3aae80) | [Data files](doh_tunnel_c2/45f56049a5c5659303c72fa38d3aae80/45f56049a5c5659303c72fa38d3aae80_full_dataset.tar.gz) | 
@@ -159,7 +159,7 @@ Two additional directories can be found:
 
 
 #### DNSTT
-| DNS SERVER | AUTOMATION LEVEL | TLS FINGERPRINT | LINK | DATA LINK | 
+| DOH SERVER | AUTOMATION LEVEL | TLS FINGERPRINT | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | DNS-over-HTTPS | Partly Manual | Chrome | [Scenario files](doh_tunnel_c2/8644ce3360128f05c2927498070d8265) | [Data files](doh_tunnel_c2/8644ce3360128f05c2927498070d8265/8644ce3360128f05c2927498070d8265_full_dataset.tar.gz) | 
 | DNS-over-HTTPS | Partly Manual | Chrome_58 | [Scenario files](doh_tunnel_c2/4827236d70d8fd799452fe4d41301b97) | [Data files](doh_tunnel_c2/4827236d70d8fd799452fe4d41301b97/4827236d70d8fd799452fe4d41301b97_full_dataset.tar.gz) | 

@@ -139,13 +139,13 @@ def gen_c2(path):
     files = Path(path).glob('*')
     data_dirs = [i for i in files if i.is_dir() and i.name != 'scenario']
 
-    #dnscat_cols  = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'LINK', 'DATA LINK']
+    #dnscat_cols  = ['DOH SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'LINK', 'DATA LINK']
     #dnscat_rows  = []
 
-    dns2tcp_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
+    dns2tcp_cols = ['DOH SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
     dns2tcp_rows = []
 
-    dnstt_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'TLS FINGERPRINT', 'LINK', 'DATA LINK']
+    dnstt_cols = ['DOH SERVER', 'AUTOMATION LEVEL', 'TLS FINGERPRINT', 'LINK', 'DATA LINK']
     dnstt_rows = []
 
     for d in data_dirs:
@@ -158,10 +158,10 @@ def gen_c2(path):
         row['LINK'] = f"[Scenario files]({d})"
         # Add link to data file
         row['DATA LINK'] = f"[Data files]({d}/{d.name}_full_dataset.tar.gz)"
-        # Specify which DNS Server was used
+        # Specify which DOH Server was used
         for component in meta_loaded['scenario']['components']:
             if "dnsoverhttps" in component["name"].lower():
-                row['DNS SERVER'] = "DNS-over-HTTPS"
+                row['DOH SERVER'] = "DNS-over-HTTPS"
                 break
 
         for component in meta_loaded['scenario']['components']:               
@@ -185,9 +185,9 @@ def gen_c2(path):
             #    dnscat_rows.append(row)
             #    break
 
-    dns2tcp_rows_sorted = sorted(dns2tcp_rows, key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
-    #dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
-    dns2tt_rows_sorted = sorted(dnstt_rows, key=lambda d: (d['DNS SERVER'], d['TLS FINGERPRINT']))
+    dns2tcp_rows_sorted = sorted(dns2tcp_rows, key=lambda d: (d['DOH SERVER'], d['DNS RECORD TYPE']))
+    #dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DOH SERVER'], d['DNS RECORD TYPE']))
+    dns2tt_rows_sorted = sorted(dnstt_rows, key=lambda d: (d['DOH SERVER'], d['TLS FINGERPRINT']))
     
     tables = []
     tables.append(gen_table("DNS2TCP", dns2tcp_cols, dns2tcp_rows_sorted))
@@ -200,16 +200,16 @@ def gen_file_transfer(path):
     files = Path(path).glob('*')
     data_dirs = [i for i in files if i.is_dir() and i.name != 'scenario']
 
-    iodine_cols  = ['DNS SERVER', 'AUTOMATION LEVEL','DNS RECORD TYPE', 'ENCODING', 'PASSPHRASE', 'LINK', 'DATA LINK']
+    iodine_cols  = ['DOH SERVER', 'AUTOMATION LEVEL','DNS RECORD TYPE', 'ENCODING', 'PASSPHRASE', 'LINK', 'DATA LINK']
     iodine_rows  = []
 
-    #dnscat_cols  = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'LINK', 'DATA LINK']
+    #dnscat_cols  = ['DOH SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'LINK', 'DATA LINK']
     #dnscat_rows  = []
 
-    dns2tcp_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
+    dns2tcp_cols = ['DOH SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
     dns2tcp_rows = []
 
-    dnstt_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'TLS FINGERPRINT', 'LINK', 'DATA LINK']
+    dnstt_cols = ['DOH SERVER', 'AUTOMATION LEVEL', 'TLS FINGERPRINT', 'LINK', 'DATA LINK']
     dnstt_rows = []
 
     for d in data_dirs:
@@ -222,10 +222,10 @@ def gen_file_transfer(path):
         row['LINK'] = f"[Scenario files]({d})"
         # Add link to data file
         row['DATA LINK'] = f"[Data files]({d}/{d.name}_full_dataset.tar.gz)"
-        # Specify which DNS Server was used
+        # Specify which DOH Server was used
         for component in meta_loaded['scenario']['components']:
             if "dnsoverhttps" in component["name"].lower():
-                row['DNS SERVER'] = "DNS-over-HTTPS"
+                row['DOH SERVER'] = "DNS-over-HTTPS"
                 break
 
         for component in meta_loaded['scenario']['components']:
@@ -257,10 +257,10 @@ def gen_file_transfer(path):
                 dnstt_rows.append(row)
                 break
 
-    iodine_rows_sorted  = sorted(iodine_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
-    dns2tcp_rows_sorted = sorted(dns2tcp_rows, key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
-    #dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
-    dns2tt_rows_sorted = sorted(dnstt_rows, key=lambda d: (d['DNS SERVER'], d['TLS FINGERPRINT']))
+    iodine_rows_sorted  = sorted(iodine_rows,  key=lambda d: (d['DOH SERVER'], d['DNS RECORD TYPE']))
+    dns2tcp_rows_sorted = sorted(dns2tcp_rows, key=lambda d: (d['DOH SERVER'], d['DNS RECORD TYPE']))
+    #dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DOH SERVER'], d['DNS RECORD TYPE']))
+    dns2tt_rows_sorted = sorted(dnstt_rows, key=lambda d: (d['DOH SERVER'], d['TLS FINGERPRINT']))
     
     tables = []
     tables.append(gen_table("IODINE",  iodine_cols,  iodine_rows_sorted))
