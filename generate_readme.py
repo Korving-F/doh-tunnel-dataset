@@ -211,6 +211,7 @@ def gen_file_transfer(path):
     dnstt_rows = []
 
     for d in data_dirs:
+        print("j")
         row = {}
         with open(f"{d}/.metadata", 'r') as f:
             meta = f.read()
