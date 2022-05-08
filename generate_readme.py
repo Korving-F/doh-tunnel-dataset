@@ -145,6 +145,9 @@ def gen_c2(path):
     dns2tcp_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
     dns2tcp_rows = []
 
+    dnstt_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'TLS FINGERPRINT', 'LINK', 'DATA LINK']
+    dnstt_rows = []
+
     for d in data_dirs:
         row = {}
         with open(f"{d}/.metadata", 'r') as f:
@@ -163,11 +166,17 @@ def gen_c2(path):
 
         for component in meta_loaded['scenario']['components']:               
             if "dns2tcp" in component["name"]:
-                row['AUTOMATION LEVEL'] = "Fully Automated"
+                row['AUTOMATION LEVEL'] = "Partly Manual"
                 row['DNS RECORD TYPE']   = meta_loaded["variables"]["record_type"].upper()
                 row['COMPRESSION']       = "YES" if meta_loaded["variables"]["compression"] == "-c" else "NO"
                 row['PASSPHRASE']        = meta_loaded["variables"]["passphrase"]
                 dns2tcp_rows.append(row)
+                break
+              
+            if "dnstt" in component["name"]:
+                row['AUTOMATION LEVEL'] = "Partly Manual"
+                row['TLS FINGERPRINT'] = meta_loaded["variables"]["utls"]
+                dnstt_rows.append(row)
                 break
                 
             #if "dnscat" in component["name"]:
@@ -178,10 +187,12 @@ def gen_c2(path):
 
     dns2tcp_rows_sorted = sorted(dns2tcp_rows, key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
     #dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
+    dns2tt_rows_sorted = sorted(dnstt_rows, key=lambda d: (d['DNS SERVER'], d['TLS FINGERPRINT']))
     
     tables = []
     tables.append(gen_table("DNS2TCP", dns2tcp_cols, dns2tcp_rows_sorted))
     #tables.append(gen_table("DNSCAT",  dnscat_cols,  dnscat_rows_sorted))
+    tables.append(gen_table("DNSTT", dnstt_cols, dns2tt_rows_sorted))
     return "\n".join(tables)
 
 
@@ -198,7 +209,7 @@ def gen_file_transfer(path):
     dns2tcp_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
     dns2tcp_rows = []
 
-    dnstt_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'DNS RECORD TYPE', 'COMPRESSION', 'PASSPHRASE', 'LINK', 'DATA LINK']
+    dnstt_cols = ['DNS SERVER', 'AUTOMATION LEVEL', 'TLS FINGERPRINT', 'LINK', 'DATA LINK']
     dnstt_rows = []
 
     for d in data_dirs:
@@ -240,18 +251,24 @@ def gen_file_transfer(path):
             #    dnscat_rows.append(row)
             #    break
 
+            if "dnstt" in component["name"]:
+                row['AUTOMATION LEVEL'] = "Partly Manual"
+                row['TLS FINGERPRINT'] = meta_loaded["variables"]["utls"]
+                dnstt_rows.append(row)
+                break
+
     iodine_rows_sorted  = sorted(iodine_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
     dns2tcp_rows_sorted = sorted(dns2tcp_rows, key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
     #dnscat_rows_sorted  = sorted(dnscat_rows,  key=lambda d: (d['DNS SERVER'], d['DNS RECORD TYPE']))
+    dns2tt_rows_sorted = sorted(dnstt_rows, key=lambda d: (d['DNS SERVER'], d['TLS FINGERPRINT']))
     
     tables = []
     tables.append(gen_table("IODINE",  iodine_cols,  iodine_rows_sorted))
     tables.append(gen_table("DNS2TCP", dns2tcp_cols, dns2tcp_rows_sorted))
     #tables.append(gen_table("DNSCAT",  dnscat_cols,  dnscat_rows_sorted))
+    tables.append(gen_table("DNSTT", dnstt_cols, dns2tt_rows_sorted))
     return "\n".join(tables)
-        
 
-    
 
 if __name__ == '__main__':
     # FIRST GENERATE REPORT ON FILE TRANSFER DATASETS

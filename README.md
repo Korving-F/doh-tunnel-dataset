@@ -127,15 +127,55 @@ Two additional directories can be found:
 | DNS-over-HTTPS | Fully Automated | TXT | NO | 0xDEADBEEF | [Scenario files](doh_tunnel_file_transfer/09ed5bf4696cdca87fbce5f811eded67) | [Data files](doh_tunnel_file_transfer/09ed5bf4696cdca87fbce5f811eded67/09ed5bf4696cdca87fbce5f811eded67_full_dataset.tar.gz) | 
 
 
+#### DNSTT
+| DNS SERVER | AUTOMATION LEVEL | TLS FINGERPRINT | LINK | DATA LINK | 
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| DNS-over-HTTPS | Partly Manual | Chrome | [Scenario files](doh_tunnel_file_transfer/601736c56a18195d7536f92f603f6e11) | [Data files](doh_tunnel_file_transfer/601736c56a18195d7536f92f603f6e11/601736c56a18195d7536f92f603f6e11_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_58 | [Scenario files](doh_tunnel_file_transfer/72bd1c3d4e2824c7b51cdddd01b95cd8) | [Data files](doh_tunnel_file_transfer/72bd1c3d4e2824c7b51cdddd01b95cd8/72bd1c3d4e2824c7b51cdddd01b95cd8_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_62 | [Scenario files](doh_tunnel_file_transfer/0d645f768e617005f270beb124fd9c37) | [Data files](doh_tunnel_file_transfer/0d645f768e617005f270beb124fd9c37/0d645f768e617005f270beb124fd9c37_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_70 | [Scenario files](doh_tunnel_file_transfer/27073e5ef5295f9cb05075b91732ed48) | [Data files](doh_tunnel_file_transfer/27073e5ef5295f9cb05075b91732ed48/27073e5ef5295f9cb05075b91732ed48_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_72 | [Scenario files](doh_tunnel_file_transfer/43db8367b26cf7151170cfd00f07649f) | [Data files](doh_tunnel_file_transfer/43db8367b26cf7151170cfd00f07649f/43db8367b26cf7151170cfd00f07649f_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_83 | [Scenario files](doh_tunnel_file_transfer/a9cecfe347c32976d6695040d5507244) | [Data files](doh_tunnel_file_transfer/a9cecfe347c32976d6695040d5507244/a9cecfe347c32976d6695040d5507244_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox | [Scenario files](doh_tunnel_file_transfer/9e7ec92b8ced0335cd8472414b8e5c53) | [Data files](doh_tunnel_file_transfer/9e7ec92b8ced0335cd8472414b8e5c53/9e7ec92b8ced0335cd8472414b8e5c53_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox_55 | [Scenario files](doh_tunnel_file_transfer/381d04b19e0b027a035ae331a237e281) | [Data files](doh_tunnel_file_transfer/381d04b19e0b027a035ae331a237e281/381d04b19e0b027a035ae331a237e281_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox_56 | [Scenario files](doh_tunnel_file_transfer/362e24f751a70a7058d089ddd8a1f59c) | [Data files](doh_tunnel_file_transfer/362e24f751a70a7058d089ddd8a1f59c/362e24f751a70a7058d089ddd8a1f59c_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox_63 | [Scenario files](doh_tunnel_file_transfer/6464492684ca7247e8bbda6a4ea2639d) | [Data files](doh_tunnel_file_transfer/6464492684ca7247e8bbda6a4ea2639d/6464492684ca7247e8bbda6a4ea2639d_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox_65 | [Scenario files](doh_tunnel_file_transfer/02ad546118ba4e6f1603b1566916e3dd) | [Data files](doh_tunnel_file_transfer/02ad546118ba4e6f1603b1566916e3dd/02ad546118ba4e6f1603b1566916e3dd_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | iOS | [Scenario files](doh_tunnel_file_transfer/a4bcb6c6a79e2b5b1e3a72572bc72ae5) | [Data files](doh_tunnel_file_transfer/a4bcb6c6a79e2b5b1e3a72572bc72ae5/a4bcb6c6a79e2b5b1e3a72572bc72ae5_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | iOS_11_1 | [Scenario files](doh_tunnel_file_transfer/524fcd163afb5676be86c8e65c1a0484) | [Data files](doh_tunnel_file_transfer/524fcd163afb5676be86c8e65c1a0484/524fcd163afb5676be86c8e65c1a0484_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | iOS_12_1 | [Scenario files](doh_tunnel_file_transfer/2b91047c0ae0dc94721581241a16ef0a) | [Data files](doh_tunnel_file_transfer/2b91047c0ae0dc94721581241a16ef0a/2b91047c0ae0dc94721581241a16ef0a_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | none | [Scenario files](doh_tunnel_file_transfer/c2bf27dbb4c152508713a9d1414e973c) | [Data files](doh_tunnel_file_transfer/c2bf27dbb4c152508713a9d1414e973c/c2bf27dbb4c152508713a9d1414e973c_full_dataset.tar.gz) | 
+
+
 
 ### C2 over DNS Tunnel
 #### DNS2TCP
 | DNS SERVER | AUTOMATION LEVEL | DNS RECORD TYPE | COMPRESSION | PASSPHRASE | LINK | DATA LINK | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| DNS-over-HTTPS | Fully Automated | KEY | NO | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/114d3f4082ae9fd03576fbd5b73b40e4) | [Data files](doh_tunnel_c2/114d3f4082ae9fd03576fbd5b73b40e4/114d3f4082ae9fd03576fbd5b73b40e4_full_dataset.tar.gz) | 
-| DNS-over-HTTPS | Fully Automated | KEY | YES | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/45f56049a5c5659303c72fa38d3aae80) | [Data files](doh_tunnel_c2/45f56049a5c5659303c72fa38d3aae80/45f56049a5c5659303c72fa38d3aae80_full_dataset.tar.gz) | 
-| DNS-over-HTTPS | Fully Automated | TXT | YES | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/177c88133b0fa9350ce7158fe21d07ec) | [Data files](doh_tunnel_c2/177c88133b0fa9350ce7158fe21d07ec/177c88133b0fa9350ce7158fe21d07ec_full_dataset.tar.gz) | 
-| DNS-over-HTTPS | Fully Automated | TXT | NO | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/484cbc429999a4a16da99b04ac2f6c13) | [Data files](doh_tunnel_c2/484cbc429999a4a16da99b04ac2f6c13/484cbc429999a4a16da99b04ac2f6c13_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | KEY | NO | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/114d3f4082ae9fd03576fbd5b73b40e4) | [Data files](doh_tunnel_c2/114d3f4082ae9fd03576fbd5b73b40e4/114d3f4082ae9fd03576fbd5b73b40e4_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | KEY | YES | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/45f56049a5c5659303c72fa38d3aae80) | [Data files](doh_tunnel_c2/45f56049a5c5659303c72fa38d3aae80/45f56049a5c5659303c72fa38d3aae80_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | TXT | YES | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/177c88133b0fa9350ce7158fe21d07ec) | [Data files](doh_tunnel_c2/177c88133b0fa9350ce7158fe21d07ec/177c88133b0fa9350ce7158fe21d07ec_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | TXT | NO | 0xDEADBEEF | [Scenario files](doh_tunnel_c2/484cbc429999a4a16da99b04ac2f6c13) | [Data files](doh_tunnel_c2/484cbc429999a4a16da99b04ac2f6c13/484cbc429999a4a16da99b04ac2f6c13_full_dataset.tar.gz) | 
+
+
+#### DNSTT
+| DNS SERVER | AUTOMATION LEVEL | TLS FINGERPRINT | LINK | DATA LINK | 
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| DNS-over-HTTPS | Partly Manual | Chrome | [Scenario files](doh_tunnel_c2/8644ce3360128f05c2927498070d8265) | [Data files](doh_tunnel_c2/8644ce3360128f05c2927498070d8265/8644ce3360128f05c2927498070d8265_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_58 | [Scenario files](doh_tunnel_c2/4827236d70d8fd799452fe4d41301b97) | [Data files](doh_tunnel_c2/4827236d70d8fd799452fe4d41301b97/4827236d70d8fd799452fe4d41301b97_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_62 | [Scenario files](doh_tunnel_c2/c4ef1f0d838a4e8bab4646442a3cf03b) | [Data files](doh_tunnel_c2/c4ef1f0d838a4e8bab4646442a3cf03b/c4ef1f0d838a4e8bab4646442a3cf03b_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_70 | [Scenario files](doh_tunnel_c2/a825de7ec054b955246658676232800d) | [Data files](doh_tunnel_c2/a825de7ec054b955246658676232800d/a825de7ec054b955246658676232800d_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_72 | [Scenario files](doh_tunnel_c2/8c17458a49126158cd9177ee0d1bfc03) | [Data files](doh_tunnel_c2/8c17458a49126158cd9177ee0d1bfc03/8c17458a49126158cd9177ee0d1bfc03_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Chrome_83 | [Scenario files](doh_tunnel_c2/0b04bdc87563f4909dcf819e299473e0) | [Data files](doh_tunnel_c2/0b04bdc87563f4909dcf819e299473e0/0b04bdc87563f4909dcf819e299473e0_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox | [Scenario files](doh_tunnel_c2/68c58a06f47716371dd3a039dabe84f9) | [Data files](doh_tunnel_c2/68c58a06f47716371dd3a039dabe84f9/68c58a06f47716371dd3a039dabe84f9_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox_55 | [Scenario files](doh_tunnel_c2/39f1cdc9e2556db70a78aa74251c7287) | [Data files](doh_tunnel_c2/39f1cdc9e2556db70a78aa74251c7287/39f1cdc9e2556db70a78aa74251c7287_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox_56 | [Scenario files](doh_tunnel_c2/d45bf0c92090eea25b919fb5afb800fe) | [Data files](doh_tunnel_c2/d45bf0c92090eea25b919fb5afb800fe/d45bf0c92090eea25b919fb5afb800fe_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox_63 | [Scenario files](doh_tunnel_c2/ab777a56e4795bb1c37aec62f9074997) | [Data files](doh_tunnel_c2/ab777a56e4795bb1c37aec62f9074997/ab777a56e4795bb1c37aec62f9074997_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | Firefox_65 | [Scenario files](doh_tunnel_c2/47e7b02a9e0026d4f62c108be3801469) | [Data files](doh_tunnel_c2/47e7b02a9e0026d4f62c108be3801469/47e7b02a9e0026d4f62c108be3801469_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | iOS | [Scenario files](doh_tunnel_c2/64b9dc0ceedb7bfc1a6c8522184123e9) | [Data files](doh_tunnel_c2/64b9dc0ceedb7bfc1a6c8522184123e9/64b9dc0ceedb7bfc1a6c8522184123e9_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | iOS_11_1 | [Scenario files](doh_tunnel_c2/935e20487c54018a59e61948be831c11) | [Data files](doh_tunnel_c2/935e20487c54018a59e61948be831c11/935e20487c54018a59e61948be831c11_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | iOS_12_1 | [Scenario files](doh_tunnel_c2/bb9d14d36d96d8ed86953de91b500a4e) | [Data files](doh_tunnel_c2/bb9d14d36d96d8ed86953de91b500a4e/bb9d14d36d96d8ed86953de91b500a4e_full_dataset.tar.gz) | 
+| DNS-over-HTTPS | Partly Manual | none | [Scenario files](doh_tunnel_c2/539af3311e676a4c596d3199ede4d01b) | [Data files](doh_tunnel_c2/539af3311e676a4c596d3199ede4d01b/539af3311e676a4c596d3199ede4d01b_full_dataset.tar.gz) | 
 
 
 
