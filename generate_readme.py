@@ -87,12 +87,12 @@ Two additional directories can be found:
 
 ## Architecture
 ![](images/doh_tunnel.drawio.png)
-> **Fig 1:** DNS Tunnel high-level overview. Encoded/encrypted DNS queries establish a communications channel.
+> **Fig 1:** DNS Tunnel over DoH high-level overview. Encoded/encrypted DNS queries establish a communications channel over HTTPS.
 </br>  
 </br>  
 
 ![](images/dns_tunnel_simulated.drawio.png)
-> **Fig 2:** Overview on how the DNS Tunnels are simulated and allow for C2 / data transfers.
+> **Fig 2:** Overview on how the DNS Tunnels over DoH are simulated and allow for C2 / data transfers.
 </br>  
 </br>  
 
