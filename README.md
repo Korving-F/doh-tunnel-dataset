@@ -61,12 +61,12 @@ Collected data within this repository comes in a variety of formats:
 * .pcap - Standard packet capture looking at traffic on ports 53 (UDP DNS from DoH proxy to tunnel server), port 443 (TCP DoH HTTPS traffic from client to DoH server) and port 8053 (TCP HTTP after TLS termination).
 
 Two additional directories can be found:
-* suricata - Suricata logs produced from the pcap. See also the `suricata-logging.bash` and `suricata.yaml` files.
+* suricata - Contains [Suricata](https://suricata.io/) logs produced from the pcap. See also `suricata-logging.bash` and `suricata.yaml`.
 * ja3      - Exported JA3 signatures using [Wireshark's JA3 plugin](https://github.com/fullylegit/ja3). See also the following commands and/or the two `ja3` scripts placed in the root of this repository.
-  ```bash
+```bash
 tshark -r filename.pcap -Y tls.handshake.type==1 -T fields -e ja3.hash
 tshark -r filename.pcap -Y tls.handshake.type==2 -T fields -e ja3s.hash
-  ```
+```
 
 ## Architecture
 ![](images/dns_tunnel.drawio.png)
