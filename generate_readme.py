@@ -215,8 +215,6 @@ def gen_file_transfer(path):
         with open(f"{d}/.metadata", 'r') as f:
             meta = f.read()
         meta_loaded = yaml.safe_load(meta)
-        print(meta_loaded)
-        exit()
 
         # Add link to directory
         row['LINK'] = f"[Scenario files]({d})"
