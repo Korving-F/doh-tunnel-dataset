@@ -25,8 +25,8 @@ def readme(file_transfer, c2):
 * [Architecture](#architecture)
 * [Detection Rules](#detection-rules)
 * [Datasets](#datasets)
-    * [File transfer over DNS Tunnel](#file-transfer-over-dns-tunnel)
-    * [C2 over DNS Tunnel](#c2-over-dns-tunnel)
+    * [File transfer over DoH Tunnel](#file-transfer-over-doh-tunnel)
+    * [C2 over DoH Tunnel](#c2-over-doh-tunnel)
 * [License](#license)
 
 ## Introduction
