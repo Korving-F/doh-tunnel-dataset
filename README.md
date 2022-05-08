@@ -72,7 +72,7 @@ Two additional directories can be found:
     ```
 
 ## Architecture
-![](images/dns_tunnel.drawio.png)
+![](images/doh_tunnel.drawio.png)
 > **Fig 1:** DNS Tunnel high-level overview. Encoded/encrypted DNS queries establish a communications channel.
 </br>  
 </br>  
