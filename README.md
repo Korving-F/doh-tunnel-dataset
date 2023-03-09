@@ -2,6 +2,7 @@
 # DoH Tunneling Dataset
 [![License MIT](https://img.shields.io/badge/license-MIT-blue)](https://en.wikipedia.org/wiki/MIT_License)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Korving-F/doh-tunnel-dataset)](https://github.com/Korving-F/doh-tunnel-dataset)
+[![ICCWS Paper](https://img.shields.io/badge/DOI-10.34190%2Ficcws.18.1.962-blue)](https://doi.org/10.34190/iccws.18.1.962)
 
 ## Table of Contents
 * [Introduction](#introduction)
